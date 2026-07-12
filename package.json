@@ -1,0 +1,21 @@
+{
+  "name": "migraapp",
+  "version": "1.0.0",
+  "description": "Registro y seguimiento de migrañas — Backend Node.js + SQLite",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "node --watch server/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^9.4.3",
+    "connect-sqlite3": "^0.9.13",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "uuid": "^9.0.1"
+  }
+}

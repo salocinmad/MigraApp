@@ -1,0 +1,343 @@
+/* =====================================================
+   MigraApp — main.css
+   Sistema de diseño: variables, reset, base, layout
+   Modo oscuro por defecto
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ─── Variables (Tema Oscuro por defecto) ─── */
+:root {
+  /* Colores de fondo */
+  --bg-primary: #0d0d1a;
+  --bg-secondary: #13132a;
+  --bg-tertiary: #1a1a35;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --bg-input: rgba(255, 255, 255, 0.06);
+
+  /* Colores marca - Púrpura */
+  --purple-50:  #faf5ff;
+  --purple-100: #f3e8ff;
+  --purple-200: #e9d5ff;
+  --purple-300: #d8b4fe;
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+  --purple-700: #7c3aed;
+  --purple-800: #6d28d9;
+  --purple-900: #4c1d95;
+
+  --accent-primary: #a855f7;
+  --accent-secondary: #7c3aed;
+  --accent-glow: rgba(168, 85, 247, 0.25);
+  --accent-glow-strong: rgba(168, 85, 247, 0.45);
+
+  /* Texto */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-disabled: #475569;
+
+  /* Bordes */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(168, 85, 247, 0.4);
+
+  /* Estados */
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --info: #3b82f6;
+  --info-bg: rgba(59, 130, 246, 0.12);
+
+  /* Intensidad del dolor */
+  --int-1:  #22c55e;
+  --int-2:  #4ade80;
+  --int-3:  #84cc16;
+  --int-4:  #a3e635;
+  --int-5:  #eab308;
+  --int-6:  #f59e0b;
+  --int-7:  #f97316;
+  --int-8:  #ef4444;
+  --int-9:  #dc2626;
+  --int-10: #991b1b;
+
+  /* Layout */
+  --nav-height: 68px;
+  --header-height: 56px;
+  --max-width: 480px;
+
+  /* Bordes redondeados */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --shadow-glow-strong: 0 0 32px var(--accent-glow-strong);
+
+  /* Transiciones */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+
+  /* Glassmorphism */
+  --glass-blur: blur(16px);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Tema Claro ─── */
+[data-theme="light"] {
+  --bg-primary: #f8f7ff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0eeff;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-input: rgba(124, 58, 237, 0.06);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-disabled: #cbd5e1;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-hover: rgba(0, 0, 0, 0.16);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+
+  --glass-border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Reset ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100%;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+
+/* ─── Fondo animado (aurora) ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: aurora 20s ease-in-out infinite alternate;
+}
+
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+}
+
+@keyframes aurora {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(3%, 3%) rotate(2deg); }
+}
+
+/* ─── Layout principal ─── */
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Wrapper de vistas con padding para nav */
+.view-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: calc(var(--nav-height) + 16px);
+  padding-top: 8px;
+}
+
+/* ─── Tipografía ─── */
+.text-xs    { font-size: 0.75rem;  line-height: 1.4; }
+.text-sm    { font-size: 0.875rem; line-height: 1.5; }
+.text-base  { font-size: 1rem;     line-height: 1.5; }
+.text-lg    { font-size: 1.125rem; line-height: 1.4; }
+.text-xl    { font-size: 1.25rem;  line-height: 1.3; }
+.text-2xl   { font-size: 1.5rem;   line-height: 1.3; }
+.text-3xl   { font-size: 1.875rem; line-height: 1.2; }
+.text-4xl   { font-size: 2.25rem;  line-height: 1.1; }
+
+.font-light    { font-weight: 300; }
+.font-normal   { font-weight: 400; }
+.font-medium   { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold     { font-weight: 700; }
+.font-extrabold{ font-weight: 800; }
+
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+.text-accent    { color: var(--accent-primary); }
+.text-success   { color: var(--success); }
+.text-warning   { color: var(--warning); }
+.text-danger    { color: var(--danger); }
+
+/* ─── Utilidades ─── */
+.flex           { display: flex; }
+.flex-col       { flex-direction: column; }
+.items-center   { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between{ justify-content: space-between; }
+.gap-1  { gap: 4px; }
+.gap-2  { gap: 8px; }
+.gap-3  { gap: 12px; }
+.gap-4  { gap: 16px; }
+.gap-6  { gap: 24px; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.p-3  { padding: 12px; }
+.p-4  { padding: 16px; }
+.p-5  { padding: 20px; }
+.p-6  { padding: 24px; }
+.px-4 { padding-left: 16px; padding-right: 16px; }
+.px-5 { padding-left: 20px; padding-right: 20px; }
+.py-2 { padding-top: 8px;  padding-bottom: 8px; }
+.py-3 { padding-top: 12px; padding-bottom: 12px; }
+.py-4 { padding-top: 16px; padding-bottom: 16px; }
+
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; }
+.mt-6 { margin-top: 24px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.rounded-sm  { border-radius: var(--radius-sm); }
+.rounded-md  { border-radius: var(--radius-md); }
+.rounded-lg  { border-radius: var(--radius-lg); }
+.rounded-xl  { border-radius: var(--radius-xl); }
+.rounded-full{ border-radius: var(--radius-full); }
+
+.opacity-50 { opacity: 0.5; }
+.opacity-70 { opacity: 0.7; }
+
+.hidden   { display: none !important; }
+.sr-only  { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+.truncate         { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-center      { text-align: center; }
+.text-right       { text-align: right; }
+.pointer-events-none { pointer-events: none; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.overflow-hidden { overflow: hidden; }
+
+/* ─── Animaciones de entrada ─── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+  50%       { box-shadow: 0 0 24px var(--accent-glow-strong); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fadeIn      { animation: fadeIn 0.3s ease forwards; }
+.animate-fadeInUp    { animation: fadeInUp 0.4s ease forwards; }
+.animate-scaleIn     { animation: scaleIn 0.25s ease forwards; }
+.animate-slideInRight{ animation: slideInRight 0.3s ease forwards; }
+
+/* ─── Scrollbar personalizada ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* ─── Selección de texto ─── */
+::selection { background: var(--accent-glow-strong); color: var(--text-primary); }
+
+/* ─── Gradientes de acento ─── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--purple-400), var(--purple-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--purple-700), var(--purple-900));
+}
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 16px 0;
+}

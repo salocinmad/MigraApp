@@ -1,0 +1,38 @@
+# Dependencias de Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Base de datos y datos locales de persistencia
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+
+# Variables de entorno y secretos
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs y volcados de depuración
+logs/
+*.log
+npm-debug.log*
+
+# Configuraciones de editores e IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

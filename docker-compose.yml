@@ -1,0 +1,25 @@
+services:
+  migraapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: migraapp
+    ports:
+      - "9456:3000"
+    volumes:
+      - migraapp_data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # IMPORTANTE: cambia este secreto en producción
+      - SESSION_SECRET=migraapp-super-secret-change-me-2024!
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  migraapp_data:
+    name: migraapp_data

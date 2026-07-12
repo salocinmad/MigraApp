@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MigraApp" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <title>MigraApp — Registro de Migrañas</title>
+  <meta name="description" content="Aplicación personal para el registro y seguimiento de episodios de migraña. Controla intensidad, síntomas y duración de tus episodios." />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Favicon / App icons -->
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+
+  <!-- Chart.js (para gráficos en dashboard) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- jsPDF + autotable (para generación de PDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+  <style>
+    /* Estilos críticos inline para evitar FOUC */
+    html { background-color: #0d0d1a; }
+    [data-theme="light"] html { background-color: #f8f7ff; }
+
+    /* Splash / loading inicial */
+    #app-loading {
+      position: fixed;
+      inset: 0;
+      background: #0d0d1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+    #app-loading.fade-out { opacity: 0; pointer-events: none; }
+    #app-loading .logo {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #7c3aed, #4c1d95);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
+      animation: pulse-glow 2s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+    #app-loading h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c084fc, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    #app-loading p {
+      font-family: 'Inter', sans-serif;
+      color: #64748b;
+      font-size: 0.875rem;
+      margin-top: 6px;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); }
+      50%       { box-shadow: 0 0 40px rgba(124, 58, 237, 0.7); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div id="app-loading" role="status" aria-label="Cargando MigraApp">
+    <div class="logo">🧠</div>
+    <h1>MigraApp</h1>
+    <p>Cargando...</p>
+  </div>
+
+  <!-- App Shell (SPA) -->
+  <div id="app" role="main"></div>
+
+  <!-- Toast container (se inyecta por ui.js) -->
+
+  <!-- Módulos JS (orden de dependencias) -->
+  <script src="js/storage.js?v=4"></script>
+  <script src="js/auth.js?v=4"></script>
+  <script src="js/migraine.js?v=4"></script>
+  <script src="js/ui.js?v=4"></script>
+  <script src="js/calendar.js?v=4"></script>
+  <script src="js/pdf.js?v=4"></script>
+  <script src="js/dashboard.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
+
+  <script>
+    // Ocultar splash cuando la app esté lista
+    window.addEventListener('load', () => {
+      // Aplicar tema guardado antes de mostrar la app
+      const savedTheme = localStorage.getItem('migraapp_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : '');
+
+      const splash = document.getElementById('app-loading');
+      if (splash) {
+        setTimeout(() => {
+          splash.classList.add('fade-out');
+          setTimeout(() => splash.remove(), 400);
+        }, 600);
+      }
+    });
+  </script>
+</body>
+</html>
