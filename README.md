@@ -70,8 +70,14 @@ La aplicación está completamente dockerizada. Para ejecutarla no necesitas ten
 
 ### Instrucciones para levantar el proyecto
 
-1. Descarga o clona este repositorio en tu máquina local.
-2. Abre una terminal en el directorio raíz del proyecto (donde se encuentra el archivo `docker-compose.yml`).
+1. Clona el repositorio en tu máquina local:
+   ```bash
+   git clone https://github.com/salocinmad/MigraApp.git
+   ```
+2. Accede al directorio del proyecto:
+   ```bash
+   cd MigraApp
+   ```
 3. Ejecuta el siguiente comando para construir la imagen e iniciar la aplicación:
    ```bash
    docker compose up -d --build
