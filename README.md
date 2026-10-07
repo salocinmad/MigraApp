@@ -12,6 +12,7 @@ La aplicación incluye un gestor de usuarios integrado con roles de administrado
 * Diseño moderno y premium optimizado para teléfonos móviles (*mobile-first*), con soporte para modo oscuro por defecto.
 * **Intensity Picker táctil:** Escala de dolor del 1 al 10 con un solo toque y colores dinámicos (verde a rojo).
 * Registro de síntomas acompañantes: **Neuralgia** y **Fotosensibilidad**.
+* Registro de factores **Desencadenantes**: Hormonal, Estrés, Sueño, Clima, Otros.
 * Registro opcional de medicación tomada y notas libres.
 
 ### 2. Lógica inteligente de episodios continuados ("Viene de la anterior")

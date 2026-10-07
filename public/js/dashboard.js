@@ -222,6 +222,10 @@ const Dashboard = (() => {
             <span class="entry-detail-label">Episodio:</span>
             <span>Día ${entry.duration} del episodio (desde ${UI.formatDateShort(entry.episodeStartDate)})</span>
           </div>` : ''}
+          ${entry.trigger ? `<div class="entry-detail-row">
+            <span class="entry-detail-label">Desencadenante:</span>
+            <span>🎯 ${entry.trigger}</span>
+          </div>` : ''}
           ${entry.medication ? `<div class="entry-detail-row">
             <span class="entry-detail-label">Medicación:</span>
             <span>${entry.medication}</span>

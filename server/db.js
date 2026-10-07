@@ -56,6 +56,7 @@ function initSchema() {
                             CHECK(neuralgia IN (0, 1)),
       photosensitivity    INTEGER NOT NULL DEFAULT 0
                             CHECK(photosensitivity IN (0, 1)),
+      trigger             TEXT NOT NULL DEFAULT '',
       medication          TEXT NOT NULL DEFAULT '',
       notes               TEXT NOT NULL DEFAULT '',
       created_at          TEXT NOT NULL DEFAULT (datetime('now')),
@@ -75,6 +76,11 @@ function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_sessions_expired
       ON sessions(expired);
   `);
+
+  const cols = _db.prepare("PRAGMA table_info(migraines)").all();
+  if (cols.length > 0 && !cols.some(c => c.name === 'trigger')) {
+    _db.exec("ALTER TABLE migraines ADD COLUMN trigger TEXT NOT NULL DEFAULT ''");
+  }
 }
 
 

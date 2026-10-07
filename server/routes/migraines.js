@@ -21,6 +21,7 @@ function mapMigraine(m) {
     intensity:         m.intensity,
     neuralgia:         m.neuralgia === 1,
     photosensitivity:  m.photosensitivity === 1,
+    trigger:           m.trigger || '',
     medication:        m.medication || '',
     notes:             m.notes || '',
     createdAt:         m.created_at,
@@ -56,7 +57,7 @@ router.post('/', requireAuth, (req, res) => {
   const userId      = req.session.user.id;
   const {
     date, fromPrevious, episodeStartDate, duration,
-    intensity, neuralgia, photosensitivity, medication, notes
+    intensity, neuralgia, photosensitivity, trigger, medication, notes
   } = req.body || {};
 
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -74,8 +75,8 @@ router.post('/', requireAuth, (req, res) => {
   db.prepare(`
     INSERT INTO migraines
       (id, user_id, date, from_previous, episode_start_date, duration,
-       intensity, neuralgia, photosensitivity, medication, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       intensity, neuralgia, photosensitivity, trigger, medication, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     id, userId, date,
     fromPrevious ? 1 : 0,
@@ -84,6 +85,7 @@ router.post('/', requireAuth, (req, res) => {
     intensity   != null ? Number(intensity)   : 5,
     neuralgia           ? 1 : 0,
     photosensitivity    ? 1 : 0,
+    trigger     || '',
     medication  || '',
     notes       || ''
   );
@@ -108,7 +110,7 @@ router.put('/:id', requireAuth, (req, res) => {
 
   const {
     fromPrevious, episodeStartDate, duration,
-    intensity, neuralgia, photosensitivity, medication, notes
+    intensity, neuralgia, photosensitivity, trigger, medication, notes
   } = req.body || {};
 
   db.prepare(`
@@ -119,6 +121,7 @@ router.put('/:id', requireAuth, (req, res) => {
       intensity          = ?,
       neuralgia          = ?,
       photosensitivity   = ?,
+      trigger            = ?,
       medication         = ?,
       notes              = ?,
       updated_at         = datetime('now')
@@ -130,6 +133,7 @@ router.put('/:id', requireAuth, (req, res) => {
     intensity         != null ? Number(intensity)                : migraine.intensity,
     neuralgia         != null ? (neuralgia ? 1 : 0)             : migraine.neuralgia,
     photosensitivity  != null ? (photosensitivity ? 1 : 0)      : migraine.photosensitivity,
+    trigger           != null ? trigger                          : (migraine.trigger || ''),
     medication        != null ? medication                       : migraine.medication,
     notes             != null ? notes                            : migraine.notes,
     id

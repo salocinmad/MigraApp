@@ -39,6 +39,7 @@ router.get('/export', requireAdmin, (req, res) => {
       intensity:        m.intensity,
       neuralgia:        m.neuralgia === 1,
       photosensitivity: m.photosensitivity === 1,
+      trigger:          m.trigger || '',
       medication:       m.medication,
       notes:            m.notes,
       createdAt:        m.created_at
@@ -91,8 +92,8 @@ router.post('/import', requireAdmin, (req, res) => {
     const insertMigraine = db.prepare(`
       INSERT OR IGNORE INTO migraines
         (id, user_id, date, from_previous, episode_start_date, duration,
-         intensity, neuralgia, photosensitivity, medication, notes, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         intensity, neuralgia, photosensitivity, trigger, medication, notes, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
     for (const m of data.migraines) {
       try {
@@ -106,6 +107,7 @@ router.post('/import', requireAdmin, (req, res) => {
           m.intensity || 5,
           m.neuralgia ? 1 : 0,
           m.photosensitivity ? 1 : 0,
+          m.trigger || '',
           m.medication || '',
           m.notes || '',
           m.createdAt || m.created_at || new Date().toISOString()

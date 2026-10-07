@@ -167,18 +167,19 @@ const PDFReport = (() => {
         `${ep.maxIntensity}/10`,
         ep.hasNeuralgia ? 'Sí' : 'No',
         ep.hasPhotosensitivity ? 'Sí' : 'No',
+        ep.triggers || '—',
         ep.medications || '—',
         ep.notes || '—'
       ]);
 
       doc.autoTable({
         startY:  y,
-        head:    [['Fecha(s)', 'Duración', 'Int. máx', 'Neuralgia', 'Foto', 'Medicación', 'Notas']],
+        head:    [['Fecha(s)', 'Duración', 'Int. máx', 'Neuralgia', 'Foto', 'Desencadenante', 'Medicación', 'Notas']],
         body:    tableData,
         margin:  { left: margin, right: margin },
         styles:  {
-          fontSize:   8,
-          cellPadding: 3,
+          fontSize:   7.5,
+          cellPadding: 2.5,
           textColor:  dark,
           lineColor:  [220, 220, 230],
           lineWidth:  0.1
@@ -187,17 +188,18 @@ const PDFReport = (() => {
           fillColor:  purple,
           textColor:  white,
           fontStyle:  'bold',
-          fontSize:   8.5
+          fontSize:   8
         },
         alternateRowStyles: { fillColor: lightBg },
         columnStyles: {
-          0: { cellWidth: 32 },
-          1: { cellWidth: 18, halign: 'center' },
-          2: { cellWidth: 16, halign: 'center' },
-          3: { cellWidth: 18, halign: 'center' },
-          4: { cellWidth: 14, halign: 'center' },
-          5: { cellWidth: 28 },
-          6: { cellWidth: 'auto' }
+          0: { cellWidth: 28 },
+          1: { cellWidth: 16, halign: 'center' },
+          2: { cellWidth: 15, halign: 'center' },
+          3: { cellWidth: 16, halign: 'center' },
+          4: { cellWidth: 12, halign: 'center' },
+          5: { cellWidth: 26 },
+          6: { cellWidth: 26 },
+          7: { cellWidth: 'auto' }
         },
         didParseCell(data) {
           // Colorear intensidad
@@ -241,26 +243,28 @@ const PDFReport = (() => {
         `${e.intensity || '?'}/10`,
         e.neuralgia ? 'Sí' : 'No',
         e.photosensitivity ? 'Sí' : 'No',
+        e.trigger || '—',
         e.medication || '—',
         e.notes || '—'
       ]);
 
       doc.autoTable({
         startY:  y,
-        head:    [['Fecha', '¿Anterior?', 'Intensidad', 'Neuralgia', 'Foto', 'Medicación', 'Notas']],
+        head:    [['Fecha', '¿Anterior?', 'Intensidad', 'Neuralgia', 'Foto', 'Desencadenante', 'Medicación', 'Notas']],
         body:    dailyData,
         margin:  { left: margin, right: margin },
         styles:  { fontSize: 7.5, cellPadding: 2.5, textColor: dark, lineColor: [220,220,230], lineWidth: 0.1 },
         headStyles: { fillColor: purple, textColor: white, fontStyle: 'bold', fontSize: 8 },
         alternateRowStyles: { fillColor: lightBg },
         columnStyles: {
-          0: { cellWidth: 28 },
-          1: { cellWidth: 18, halign: 'center' },
-          2: { cellWidth: 18, halign: 'center' },
-          3: { cellWidth: 18, halign: 'center' },
-          4: { cellWidth: 14, halign: 'center' },
-          5: { cellWidth: 28 },
-          6: { cellWidth: 'auto' }
+          0: { cellWidth: 26 },
+          1: { cellWidth: 16, halign: 'center' },
+          2: { cellWidth: 16, halign: 'center' },
+          3: { cellWidth: 16, halign: 'center' },
+          4: { cellWidth: 12, halign: 'center' },
+          5: { cellWidth: 26 },
+          6: { cellWidth: 26 },
+          7: { cellWidth: 'auto' }
         }
       });
     }

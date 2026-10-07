@@ -272,6 +272,7 @@ const App = (() => {
       intensity:        existing?.intensity        ?? 5,
       neuralgia:        existing?.neuralgia        ?? false,
       photosensitivity: existing?.photosensitivity ?? false,
+      trigger:          existing?.trigger          || '',
       medication:       existing?.medication       || '',
       notes:            existing?.notes            || ''
     };
@@ -327,6 +328,18 @@ const App = (() => {
               <span>Fotosensibilidad</span>
             </button>
           </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🎯 Desencadenantes <span class="text-muted font-normal">(opcional)</span></label>
+          <select class="form-input" id="reg-trigger">
+            <option value="">Seleccionar desencadenante...</option>
+            <option value="Hormonal" ${formState.trigger === 'Hormonal' ? 'selected' : ''}>Hormonal</option>
+            <option value="Estrés" ${formState.trigger === 'Estrés' ? 'selected' : ''}>Estrés</option>
+            <option value="Sueño" ${formState.trigger === 'Sueño' ? 'selected' : ''}>Sueño</option>
+            <option value="Clima" ${formState.trigger === 'Clima' ? 'selected' : ''}>Clima</option>
+            <option value="Otros" ${formState.trigger === 'Otros' ? 'selected' : ''}>Otros</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -437,6 +450,7 @@ const App = (() => {
     errorEl.classList.add('hidden');
 
     formState.date       = document.getElementById('reg-date').value;
+    formState.trigger    = document.getElementById('reg-trigger').value;
     formState.medication = document.getElementById('reg-medication').value;
     formState.notes      = document.getElementById('reg-notes').value;
 

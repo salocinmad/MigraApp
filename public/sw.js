@@ -1,16 +1,16 @@
-const CACHE_NAME = 'migraapp-v1.4';
+const CACHE_NAME = 'migraapp-v1.5';
 const ASSETS = [
   '/index.html',
   '/css/main.css',
   '/css/components.css',
-  '/js/storage.js?v=4',
-  '/js/auth.js?v=4',
-  '/js/migraine.js?v=4',
-  '/js/ui.js?v=4',
-  '/js/calendar.js?v=4',
-  '/js/pdf.js?v=4',
-  '/js/dashboard.js?v=4',
-  '/js/app.js?v=4',
+  '/js/storage.js?v=5',
+  '/js/auth.js?v=5',
+  '/js/migraine.js?v=5',
+  '/js/ui.js?v=5',
+  '/js/calendar.js?v=5',
+  '/js/pdf.js?v=5',
+  '/js/dashboard.js?v=5',
+  '/js/app.js?v=5',
   '/manifest.json',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png'

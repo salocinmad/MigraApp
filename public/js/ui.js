@@ -190,6 +190,7 @@ const UI = (() => {
     if (entry.duration > 1) badges.push(`<span class="badge badge-duration">⏱ ${entry.duration}d</span>`);
     if (entry.neuralgia) badges.push(`<span class="badge badge-neuralgia">⚡ Neuralgia</span>`);
     if (entry.photosensitivity) badges.push(`<span class="badge badge-photo">☀️ Foto</span>`);
+    if (entry.trigger) badges.push(`<span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🎯 ${entry.trigger}</span>`);
     return badges.join('');
   }
 

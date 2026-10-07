@@ -96,6 +96,7 @@ const Migraine = (() => {
       intensity:        data.intensity || 5,
       neuralgia:        data.neuralgia || false,
       photosensitivity: data.photosensitivity || false,
+      trigger:          (data.trigger || '').trim(),
       medication:       (data.medication || '').trim(),
       notes:            (data.notes || '').trim()
     });
@@ -163,6 +164,7 @@ const Migraine = (() => {
           intensities:         [e.intensity || 0],
           hasNeuralgia:        e.neuralgia,
           hasPhotosensitivity: e.photosensitivity,
+          triggers:            e.trigger ? [e.trigger] : [],
           medications:         e.medication ? [e.medication] : [],
           notes:               e.notes ? [e.notes] : [],
           entries:             [e]
@@ -176,6 +178,7 @@ const Migraine = (() => {
         current.intensities.push(e.intensity || 0);
         current.hasNeuralgia       = current.hasNeuralgia || e.neuralgia;
         current.hasPhotosensitivity = current.hasPhotosensitivity || e.photosensitivity;
+        if (e.trigger)    current.triggers.push(e.trigger);
         if (e.medication) current.medications.push(e.medication);
         if (e.notes)      current.notes.push(e.notes);
         current.entries.push(e);
@@ -187,6 +190,7 @@ const Migraine = (() => {
       return {
         ...ep,
         avgIntensity: ep.intensities.length ? +(sum / ep.intensities.length).toFixed(1) : 0,
+        triggers:     [...new Set(ep.triggers.filter(Boolean))].join(', '),
         medications:  [...new Set(ep.medications)].join(', '),
         notes:        ep.notes.join(' / ')
       };
