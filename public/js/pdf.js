@@ -33,6 +33,7 @@ const PDFReport = (() => {
     const gray   = [100, 116, 139];
     const white  = [255, 255, 255];
     const lightBg = [248, 247, 255];
+    const hex2rgb = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
 
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
@@ -143,9 +144,47 @@ const PDFReport = (() => {
       });
 
       y += barH_max + 14;
+
+      // ─── Intensidad media mensual del dolor (en la página 1) ───
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...dark);
+      doc.text('INTENSIDAD MEDIA MENSUAL DEL DOLOR', margin, y + 4);
+      y += 8;
+
+      months.forEach((m, i) => {
+        const mEntries = entries.filter(e => e.date.startsWith(m));
+        const avg = mEntries.length > 0
+          ? +(mEntries.reduce((s, e) => s + (e.intensity || 0), 0) / mEntries.length).toFixed(1)
+          : 0;
+        const bH = (avg / 10) * barH_max;
+        const bX = margin + i * (barW + 4);
+        const bY = y + barH_max - bH + 2;
+
+        const color = avg > 0 ? hex2rgb(UI.intensityColor(Math.round(avg))) : gray;
+        doc.setFillColor(...color);
+        doc.roundedRect(bX, bY, barW, Math.max(bH, 1), 1, 1, 'F');
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(6.5);
+        doc.setTextColor(...color);
+        doc.text(avg > 0 ? `${avg}/10` : '—', bX + barW / 2, bY - 1, { align: 'center' });
+
+        const [my, mm] = m.split('-');
+        const shortMonth = new Date(parseInt(my), parseInt(mm) - 1).toLocaleDateString('es-ES', { month: 'short' });
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(6.5);
+        doc.setTextColor(...gray);
+        doc.text(shortMonth, bX + barW / 2, y + barH_max + 7, { align: 'center' });
+      });
+
+      y += barH_max + 14;
     }
 
-    // ─── Tabla de episodios ───
+    // ─── Tabla de episodios (comienza en la página 2) ───
+    doc.addPage();
+    y = 20;
+
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(...dark);
@@ -225,8 +264,8 @@ const PDFReport = (() => {
       y = doc.lastAutoTable.finalY + 8;
     }
 
-    // ─── Tabla de registros individuales (si hay suficiente espacio) ───
-    if (entries.length > 0 && y < pageH - 40) {
+    // ─── Tabla de registros individuales (en página separada) ───
+    if (entries.length > 0) {
       // Añadir nueva página para registros detallados
       doc.addPage();
       y = 20;
